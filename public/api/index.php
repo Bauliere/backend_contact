@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 try {
     $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
-    $path = preg_replace('#^/api#', '', $path) ?: '/';
+    $path = preg_match('#/api(?=/|$)(.*)$#', $path, $matches) ? ($matches[1] ?: '/') : '/';
     $path = '/' . trim($path, '/');
 
     if ($path === '/health') {

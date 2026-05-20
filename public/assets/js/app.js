@@ -1,4 +1,7 @@
-const API_BASE = `${window.location.origin}/api`;
+const appBasePath = window.location.pathname
+    .replace(/\/index\.(html|php)$/i, '')
+    .replace(/\/$/, '');
+const API_BASE = `${appBasePath}/api`;
 
 const state = {
     categories: [],
