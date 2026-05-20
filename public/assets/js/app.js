@@ -15,6 +15,7 @@ const state = {
 };
 
 const defaultCategoryColors = ['#ff7ab6', '#89d3ff', '#d6f75d', '#20c787', '#ff8f4d', '#8f7aff'];
+const themes = ['forest', 'neon-mint', 'neon-cyan', 'neon-violet', 'neon-pink', 'neon-lime', 'neon-amber'];
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
@@ -65,10 +66,11 @@ function setStatus(message, isError = false) {
 }
 
 function setTheme(theme) {
-    document.documentElement.dataset.theme = theme;
-    localStorage.setItem('agenda-theme', theme);
+    const selectedTheme = themes.includes(theme) ? theme : 'forest';
+    document.documentElement.dataset.theme = selectedTheme;
+    localStorage.setItem('agenda-theme', selectedTheme);
     $$('[data-theme-choice]').forEach((button) => {
-        button.classList.toggle('is-active', button.dataset.themeChoice === theme);
+        button.classList.toggle('is-active', button.dataset.themeChoice === selectedTheme);
     });
     $('.theme-menu')?.classList.remove('is-open');
     $('#theme-toggle')?.setAttribute('aria-expanded', 'false');
@@ -316,7 +318,7 @@ function renderDataRows() {
         <tr>
             <td>${data.id_dato}</td>
             <td>${escapeHtml(data.nombre_contacto)}</td>
-            <td>${escapeHtml(displayDataType(data.tipo_dato))}${data.es_principal ? ' <span class="tag">Principal</span>' : ''}</td>
+            <td>${escapeHtml(displayDataType(data.tipo_dato))}${data.es_principal ? ' <span class="tag principal-tag">Principal</span>' : ''}</td>
             <td>${escapeHtml(data.valor)}</td>
             <td>
                 <div class="row-actions">
