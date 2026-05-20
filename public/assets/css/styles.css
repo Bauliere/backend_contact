@@ -119,6 +119,7 @@ html {
 }
 
 body {
+    position: relative;
     min-height: 100vh;
     margin: 0;
     background:
@@ -131,6 +132,7 @@ body::before {
     content: "";
     position: fixed;
     inset: 0;
+    z-index: 0;
     pointer-events: none;
     background: linear-gradient(90deg, color-mix(in srgb, var(--primary) 8%, transparent), transparent 38%, transparent 62%, rgba(0, 0, 0, 0.25));
     opacity: 0.9;
@@ -321,14 +323,17 @@ svg {
     position: absolute;
     right: 0;
     top: calc(100% + 0.65rem);
-    min-width: 12rem;
+    min-width: 13rem;
     display: grid;
     gap: 0.35rem;
-    padding: 0.45rem;
-    border: 1px solid var(--stroke);
+    padding: 0.55rem;
+    border: 1px solid color-mix(in srgb, var(--primary) 32%, rgba(255, 255, 255, 0.18));
     border-radius: 0.95rem;
-    background: color-mix(in srgb, var(--surface-strong) 92%, black);
-    box-shadow: 0 1.2rem 2.5rem rgba(0, 0, 0, 0.35);
+    color: #f7fff9;
+    background:
+        linear-gradient(145deg, rgba(13, 35, 29, 0.98), rgba(4, 12, 10, 0.98)),
+        var(--bg-deep);
+    box-shadow: 0 1.2rem 2.5rem rgba(0, 0, 0, 0.55);
     opacity: 0;
     transform: translateY(-0.45rem) scale(0.98);
     pointer-events: none;
@@ -346,26 +351,33 @@ svg {
     align-items: center;
     gap: 0.65rem;
     min-height: 2.55rem;
+    border: 1px solid transparent;
     border-radius: 0.75rem;
     padding: 0.45rem 0.65rem;
-    color: var(--text);
+    color: #f7fff9;
     text-align: left;
     background: transparent;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
 }
 
 .theme-options button.is-active {
-    background: color-mix(in srgb, var(--primary) 18%, transparent);
+    border-color: color-mix(in srgb, var(--primary) 44%, rgba(255, 255, 255, 0.16));
+    background: color-mix(in srgb, var(--primary) 20%, rgba(255, 255, 255, 0.05));
 }
 
 .theme-options button:hover {
-    background: color-mix(in srgb, var(--primary) 12%, rgba(255, 255, 255, 0.04));
+    border-color: color-mix(in srgb, var(--primary) 34%, rgba(255, 255, 255, 0.13));
+    background: color-mix(in srgb, var(--primary) 14%, rgba(255, 255, 255, 0.06));
 }
 
 .swatch {
     width: 1.25rem;
     height: 1.25rem;
+    flex: 0 0 1.25rem;
     border-radius: 50%;
     border: 1px solid rgba(255, 255, 255, 0.28);
+    background: linear-gradient(135deg, var(--primary), var(--accent), var(--bg-deep));
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.04), 0 0 1rem color-mix(in srgb, var(--primary) 22%, transparent);
 }
 
 .swatch-forest { background: linear-gradient(135deg, #20c787, #7ee6c7, #071a15); }
