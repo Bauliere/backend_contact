@@ -39,8 +39,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 try {
-    $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
-    $path = preg_match('#/api(?=/|$)(.*)$#', $path, $matches) ? ($matches[1] ?: '/') : '/';
+    $requestPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
+    $isApiPath = preg_match('#/api(?=/|$)(.*)$#', $requestPath, $matches);
+    $isRootPath = trim($requestPath, '/') === '';
+
+    if (!$isApiPath && !$isRootPath) {
+        Response::json([
+            'error' => 'Ruta no encontrada',
+            'message' => 'Este backend solo expone respuestas JSON por medio de /api.',
+            'path' => $requestPath,
+        ], 404);
+        exit;
+    }
+
+    $path = $isApiPath ? ($matches[1] ?: '/') : '/';
     $path = '/' . trim($path, '/');
 
     if ($path === '/' || $path === '/health') {

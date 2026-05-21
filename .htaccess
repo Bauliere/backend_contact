@@ -7,7 +7,5 @@ DirectoryIndex public/api/index.php
     RewriteRule ^(?:app|\.git|docs)(?:/|$) - [F,L]
     RewriteRule ^(?:\.env|\.gitignore)$ - [F,L]
 
-    RewriteRule ^api(?:/.*)?$ public/api/index.php [QSA,L]
-    RewriteRule ^$ public/api/index.php [QSA,L]
-    RewriteRule ^.*$ - [R=404,L]
+    RewriteRule ^.*$ public/api/index.php [QSA,L]
 </IfModule>
