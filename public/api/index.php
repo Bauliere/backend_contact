@@ -43,7 +43,7 @@ try {
     $path = preg_match('#/api(?=/|$)(.*)$#', $path, $matches) ? ($matches[1] ?: '/') : '/';
     $path = '/' . trim($path, '/');
 
-    if ($path === '/health') {
+    if ($path === '/' || $path === '/health') {
         Response::json([
             'status' => 'ok',
             'service' => 'backend-contactos',

@@ -1,19 +1,13 @@
 Options -Indexes
-DirectoryIndex public/index.html
+DirectoryIndex public/api/index.php
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    RewriteRule ^(?:app|\.git)(?:/|$) - [F,L]
-    RewriteRule ^(?:\.env|\.gitignore|database\.sql)$ - [F,L]
+    RewriteRule ^(?:app|\.git|docs)(?:/|$) - [F,L]
+    RewriteRule ^(?:\.env|\.gitignore)$ - [F,L]
 
-    RewriteRule ^assets/(.*)$ public/assets/$1 [L]
     RewriteRule ^api(?:/.*)?$ public/api/index.php [QSA,L]
-
-    RewriteCond %{REQUEST_FILENAME} -f [OR]
-    RewriteCond %{REQUEST_FILENAME} -d
-    RewriteRule ^ - [L]
-
-    RewriteRule ^$ public/index.html [L]
-    RewriteRule ^.*$ public/index.html [L]
+    RewriteRule ^$ public/api/index.php [QSA,L]
+    RewriteRule ^.*$ - [R=404,L]
 </IfModule>
